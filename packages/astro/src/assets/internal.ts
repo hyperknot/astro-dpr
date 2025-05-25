@@ -121,8 +121,6 @@ export async function getImage(
   // init devicePixelRatio to 1.0
   resolvedOptions.devicePixelRatio ??= 1
 
-
-
 	if (originalWidth && originalHeight) {
 		// Calculate any missing dimensions from the aspect ratio, if available
 		const aspectRatio = originalWidth / originalHeight;
@@ -150,18 +148,16 @@ export async function getImage(
 			width: resolvedOptions.width,
 			layout,
 			originalWidth,
-			breakpoints: imageConfig.experimentalBreakpoints?.length
+			screenBreakpoints: imageConfig.experimentalBreakpoints?.length
 				? imageConfig.experimentalBreakpoints
 				: isLocalService(service)
 					? LIMITED_RESOLUTIONS
 					: DEFAULT_RESOLUTIONS,
-      devicePixelRatio: resolvedOptions.devicePixelRatio,
 		});
 
     console.log(resolvedOptions.widths)
 
-    const steps4 = [0.25, 0.50, 1.00, 2.00] // Ratio: 2.0
-    const steps7 = [0.25, 0.35, 0.50, 0.71, 1.00, 1.41, 2.00] // Ratio: 1.414 (√2)
+
 
 
 		resolvedOptions.sizes ||= getSizesAttribute({ width: resolvedOptions.width, layout });
