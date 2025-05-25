@@ -138,6 +138,7 @@ export async function getImage(
 				: isLocalService(service)
 					? LIMITED_RESOLUTIONS
 					: DEFAULT_RESOLUTIONS,
+      devicePixelRatio: resolvedOptions.devicePixelRatio
 		});
 		resolvedOptions.sizes ||= getSizesAttribute({ width: resolvedOptions.width, layout });
 
