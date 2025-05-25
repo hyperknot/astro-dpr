@@ -70,6 +70,8 @@ export async function getImage(
 
 	const service = await getConfiguredImageService();
 
+  console.log('---')
+
 	// If the user inlined an import, something fairly common especially in MDX, or passed a function that returns an Image, await it for them
 	const resolvedOptions: ImageTransform = {
 		...options,
@@ -99,6 +101,8 @@ export async function getImage(
 		? resolvedOptions.src.fsPath
 		: undefined; // Only set for ESM imports, where we do have a file path
 
+
+
 	// Clone the `src` object if it's an ESM import so that we don't refer to any properties of the original object
 	// Causing our generate step to think the image is used outside of the image optimization pipeline
 	const clonedSrc = isESMImportedImage(resolvedOptions.src)
@@ -106,11 +110,18 @@ export async function getImage(
 			(resolvedOptions.src.clone ?? resolvedOptions.src)
 		: resolvedOptions.src;
 
+
+
 	if (isESMImportedImage(clonedSrc)) {
 		originalWidth = clonedSrc.width;
 		originalHeight = clonedSrc.height;
 		originalFormat = clonedSrc.format;
 	}
+
+  // init devicePixelRatio to 1.0
+  resolvedOptions.devicePixelRatio ??= 1
+
+
 
 	if (originalWidth && originalHeight) {
 		// Calculate any missing dimensions from the aspect ratio, if available
@@ -119,12 +130,18 @@ export async function getImage(
 			resolvedOptions.width = Math.round(resolvedOptions.height * aspectRatio);
 		} else if (resolvedOptions.width && !resolvedOptions.height) {
 			resolvedOptions.height = Math.round(resolvedOptions.width / aspectRatio);
-		} else if (!resolvedOptions.width && !resolvedOptions.height) {
-			resolvedOptions.width = originalWidth;
-			resolvedOptions.height = originalHeight;
+		}
+
+    // If no target size is specficied: calculate the target size as originalDimensions / devicePixelRatio
+    else if (!resolvedOptions.width && !resolvedOptions.height) {
+			resolvedOptions.width = originalWidth / resolvedOptions.devicePixelRatio;
+			resolvedOptions.height = originalHeight / resolvedOptions.devicePixelRatio;
 		}
 	}
 	resolvedOptions.src = clonedSrc;
+
+  console.log({resolvedOptions, originalFilePath, originalWidth, originalHeight, originalFormat})
+
 
 	const layout = options.layout ?? imageConfig.experimentalLayout;
 
@@ -138,8 +155,15 @@ export async function getImage(
 				: isLocalService(service)
 					? LIMITED_RESOLUTIONS
 					: DEFAULT_RESOLUTIONS,
-      devicePixelRatio: resolvedOptions.devicePixelRatio
+      devicePixelRatio: resolvedOptions.devicePixelRatio,
 		});
+
+    console.log(resolvedOptions.widths)
+
+    const steps4 = [0.25, 0.50, 1.00, 2.00] // Ratio: 2.0
+    const steps7 = [0.25, 0.35, 0.50, 0.71, 1.00, 1.41, 2.00] // Ratio: 1.414 (√2)
+
+
 		resolvedOptions.sizes ||= getSizesAttribute({ width: resolvedOptions.width, layout });
 
 		if (resolvedOptions.priority) {
@@ -153,6 +177,7 @@ export async function getImage(
 		}
 		delete resolvedOptions.priority;
 		delete resolvedOptions.densities;
+    delete resolvedOptions.devicePixelRatio;
 
 		if (layout !== 'none') {
 			resolvedOptions.style = addCSSVarsToStyle(
