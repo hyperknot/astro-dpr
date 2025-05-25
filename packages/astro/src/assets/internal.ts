@@ -64,13 +64,14 @@ export async function getImage(
 		});
 	}
 
+
+
 	if (isImageMetadata(options)) {
 		throw new AstroError(AstroErrorData.ExpectedNotESMImage);
 	}
 
-	const service = await getConfiguredImageService();
 
-  console.log('---')
+	const service = await getConfiguredImageService();
 
 	// If the user inlined an import, something fairly common especially in MDX, or passed a function that returns an Image, await it for them
 	const resolvedOptions: ImageTransform = {
@@ -118,6 +119,7 @@ export async function getImage(
 		originalFormat = clonedSrc.format;
 	}
 
+
   // init devicePixelRatio to 1.0
   resolvedOptions.devicePixelRatio ??= 1
 
@@ -138,9 +140,6 @@ export async function getImage(
 	}
 	resolvedOptions.src = clonedSrc;
 
-  console.log({resolvedOptions, originalFilePath, originalWidth, originalHeight, originalFormat})
-
-
 	const layout = options.layout ?? imageConfig.experimentalLayout;
 
 	if (imageConfig.experimentalResponsiveImages && layout) {
@@ -154,11 +153,6 @@ export async function getImage(
 					? LIMITED_RESOLUTIONS
 					: DEFAULT_RESOLUTIONS,
 		});
-
-    console.log(resolvedOptions.widths)
-
-
-
 
 		resolvedOptions.sizes ||= getSizesAttribute({ width: resolvedOptions.width, layout });
 
@@ -196,6 +190,7 @@ export async function getImage(
 		? await service.getSrcSet(validatedOptions, imageConfig)
 		: [];
 
+
 	let imageURL = await service.getURL(validatedOptions, imageConfig);
 
 	const matchesOriginal = (transform: ImageTransform) =>
@@ -221,6 +216,7 @@ export async function getImage(
 		globalThis.astroAsset.addStaticImage &&
 		!(isRemoteImage(validatedOptions.src) && imageURL === validatedOptions.src)
 	) {
+
 		const propsToHash = service.propertiesToHash ?? DEFAULT_HASH_PROPS;
 		imageURL = globalThis.astroAsset.addStaticImage(
 			validatedOptions,
@@ -238,6 +234,8 @@ export async function getImage(
 			};
 		});
 	}
+
+
 
 	return {
 		rawOptions: resolvedOptions,
