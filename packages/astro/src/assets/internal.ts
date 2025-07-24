@@ -123,7 +123,7 @@ export async function getImage(
 			resolvedOptions.height = originalHeight / resolvedOptions.devicePixelRatio;
 		}
 	}
-  
+
   delete resolvedOptions.devicePixelRatio;
 	resolvedOptions.src = clonedSrc;
 
