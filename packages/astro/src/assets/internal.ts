@@ -105,6 +105,9 @@ export async function getImage(
 		originalHeight = clonedSrc.height;
 	}
 
+  // init devicePixelRatio to 1.0
+  resolvedOptions.devicePixelRatio ??= 1
+
 	if (originalWidth && originalHeight) {
 		// Calculate any missing dimensions from the aspect ratio, if available
 		const aspectRatio = originalWidth / originalHeight;
@@ -112,11 +115,16 @@ export async function getImage(
 			resolvedOptions.width = Math.round(resolvedOptions.height * aspectRatio);
 		} else if (resolvedOptions.width && !resolvedOptions.height) {
 			resolvedOptions.height = Math.round(resolvedOptions.width / aspectRatio);
-		} else if (!resolvedOptions.width && !resolvedOptions.height) {
-			resolvedOptions.width = originalWidth;
-			resolvedOptions.height = originalHeight;
+		}
+
+    // If no target size is specficied: calculate the target size as originalDimensions / devicePixelRatio
+    else if (!resolvedOptions.width && !resolvedOptions.height) {
+			resolvedOptions.width = originalWidth / resolvedOptions.devicePixelRatio;
+			resolvedOptions.height = originalHeight / resolvedOptions.devicePixelRatio;
 		}
 	}
+  
+  delete resolvedOptions.devicePixelRatio;
 	resolvedOptions.src = clonedSrc;
 
 	const layout = options.layout ?? imageConfig.layout ?? 'none';
@@ -146,6 +154,8 @@ export async function getImage(
 		resolvedOptions.sizes ||= getSizesAttribute({ width: resolvedOptions.width, layout });
 		// The densities option is incompatible with the `layout` option
 		delete resolvedOptions.densities;
+
+
 		resolvedOptions.style = addCSSVarsToStyle(
 			{
 				fit: cssFitValues.includes(resolvedOptions.fit ?? '') && resolvedOptions.fit,
