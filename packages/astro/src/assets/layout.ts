@@ -33,7 +33,7 @@ export const LIMITED_RESOLUTIONS = [
 
 const stepsFixed = [1.0, 2.0];
 
-const _steps4 = [0.25, 0.5, 1.0, 2.0]; // Ratio: 2.0
+// const steps4 = [0.25, 0.5, 1.0, 2.0]; // Ratio: 2.0
 const steps7 = [0.25, 0.35, 0.5, 0.71, 1.0, 1.41, 2.0]; // Ratio: 1.414 (√2)
 
 /**
