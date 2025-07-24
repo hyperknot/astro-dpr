@@ -1,4 +1,9 @@
+# DevicePixelRatio support for Astro
+
+
+
 <br/>
+
 <p align="center">
   <img src="../../.github/assets/banner.jpg" alt="Build the web you want">
   <br/><br/>
