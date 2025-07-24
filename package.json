@@ -49,7 +49,7 @@
   "engines": {
     "node": "^18.20.8 || ^20.3.0 || >=22.0.0"
   },
-  "packageManager": "pnpm@10.5.1",
+  "packageManager": "pnpm@10.13.1",
   "dependencies": {
     "astro-benchmark": "workspace:*"
   },
@@ -80,10 +80,11 @@
       ]
     },
     "onlyBuiltDependencies": [
-      "esbuild",
-      "workerd",
       "@biomejs/biome",
-      "sharp"
+      "esbuild",
+      "oxc-resolver",
+      "sharp",
+      "workerd"
     ]
   }
 }
