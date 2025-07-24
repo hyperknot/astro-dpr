@@ -90,7 +90,7 @@ export type ImageTransform = {
 	format?: ImageOutputFormat | undefined;
 	fit?: ImageFit | undefined;
 	position?: string | undefined;
-  devicePixelRatio?: number | undefined;
+	devicePixelRatio?: number | undefined;
 	[key: string]: any;
 };
 

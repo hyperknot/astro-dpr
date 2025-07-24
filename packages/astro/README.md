@@ -1,7 +1,5 @@
 # DevicePixelRatio support for Astro
 
-
-
 <br/>
 
 <p align="center">

@@ -31,13 +31,10 @@ export const LIMITED_RESOLUTIONS = [
 	2560, // WQXGA
 ];
 
-const stepsFixed = [1.0, 2.0]
+const stepsFixed = [1.0, 2.0];
 
-// @ts-ignore
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const steps4 = [0.25, 0.50, 1.00, 2.00] // Ratio: 2.0
-const steps7 = [0.25, 0.35, 0.50, 0.71, 1.00, 1.41, 2.00] // Ratio: 1.414 (√2)
-
+const _steps4 = [0.25, 0.5, 1.0, 2.0]; // Ratio: 2.0
+const steps7 = [0.25, 0.35, 0.5, 0.71, 1.0, 1.41, 2.0]; // Ratio: 1.414 (√2)
 
 /**
  * Gets the breakpoints for an image, based on the layout and width
@@ -59,9 +56,9 @@ export const getWidths = ({
 	breakpoints?: Array<number>;
 	originalWidth?: number;
 }): Array<number> => {
-  if (layout === 'none') return []
+	if (layout === 'none') return [];
 
-  const breakpointsSorted = breakpoints.sort((a, b) => a - b);
+	const breakpointsSorted = breakpoints.sort((a, b) => a - b);
 
 	const smallerThanOriginal = (w: number) => !originalWidth || w <= originalWidth;
 
@@ -74,34 +71,31 @@ export const getWidths = ({
 		return [];
 	}
 
-  // Pick the correct step array
-  const stepsForLayout = {
-    fixed: stepsFixed,
-    constrained: steps7,
-  };
-  const steps = stepsForLayout[layout];
+	// Pick the correct step array
+	const stepsForLayout = {
+		fixed: stepsFixed,
+		constrained: steps7,
+	};
+	const steps = stepsForLayout[layout];
 
-  // Compute and sort the candidate widths
-  let candidates = steps
-    .map(step => Math.round(width * step))
-    .sort((a, b) => a - b);
+	// Compute and sort the candidate widths
+	let candidates = steps.map((step) => Math.round(width * step)).sort((a, b) => a - b);
 
-
-  // Limit sizes to originalWidth (add size and filter below)
+	// Limit sizes to originalWidth (add size and filter below)
 	if (originalWidth && originalWidth < candidates.at(-1)!) {
-    candidates.push(originalWidth)
-  }
+		candidates.push(originalWidth);
+	}
 
-  // Limit sizes to biggest possible screen size x2, but absolute max. width to 6K (add size and filter below)
-  const largestScreenSize = Math.min(breakpointsSorted.at(-1)! * 2, 6016)
-  if (candidates.at(-1)! > largestScreenSize) {
-    candidates.push(largestScreenSize)
-  }
+	// Limit sizes to biggest possible screen size x2, but absolute max. width to 6K (add size and filter below)
+	const largestScreenSize = Math.min(breakpointsSorted.at(-1)! * 2, 6016);
+	if (candidates.at(-1)! > largestScreenSize) {
+		candidates.push(largestScreenSize);
+	}
 
-  // Filter to sizes smaller than original width and smaller then largestScreenSizeX2
-  candidates = candidates.filter(smallerThanOriginal).filter(w => w <= largestScreenSize)
+	// Filter to sizes smaller than original width and smaller then largestScreenSizeX2
+	candidates = candidates.filter(smallerThanOriginal).filter((w) => w <= largestScreenSize);
 
-  // Remove duplicates and return sorted array
+	// Remove duplicates and return sorted array
 	return [...new Set(candidates)].sort((a, b) => a - b);
 };
 
