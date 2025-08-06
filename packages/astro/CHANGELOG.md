@@ -1,5 +1,67 @@
 # astro
 
+## 5.12.8
+
+### Patch Changes
+
+- [`0567fb7`](https://github.com/withastro/astro/commit/0567fb7b50c0c452be387dd7c7264b96bedab48f) Thanks [@ascorbic](https://github.com/ascorbic)! - Adds `//` to list of internal path prefixes that do not have automated trailing slash handling
+
+- [#13894](https://github.com/withastro/astro/pull/13894) [`b36e72f`](https://github.com/withastro/astro/commit/b36e72f11fbcc0f3d5826f2b1939084f1fb1e3a8) Thanks [@florian-lefebvre](https://github.com/florian-lefebvre)! - Removes Astro Studio commands from the CLI help
+
+- Updated dependencies [[`0567fb7`](https://github.com/withastro/astro/commit/0567fb7b50c0c452be387dd7c7264b96bedab48f)]:
+  - @astrojs/internal-helpers@0.7.1
+  - @astrojs/markdown-remark@6.3.5
+
+## 5.12.7
+
+### Patch Changes
+
+- [#14169](https://github.com/withastro/astro/pull/14169) [`f4e8889`](https://github.com/withastro/astro/commit/f4e8889c10c25aeb7650b389c35a70780d5ed172) Thanks [@ascorbic](https://github.com/ascorbic)! - Skips trailing slash handling for paths that start with `/.`.
+
+- [#14170](https://github.com/withastro/astro/pull/14170) [`34e6b3a`](https://github.com/withastro/astro/commit/34e6b3a87dd3e9be4886059d1c0efee4c5fa3cda) Thanks [@ematipico](https://github.com/ematipico)! - Fixes an issue where static redirects couldn't correctly generate a redirect when the destination is a prerendered route, and the `output` is set to `"server"`.
+
+- [#14169](https://github.com/withastro/astro/pull/14169) [`f4e8889`](https://github.com/withastro/astro/commit/f4e8889c10c25aeb7650b389c35a70780d5ed172) Thanks [@ascorbic](https://github.com/ascorbic)! - Fixes a bug that prevented images from being displayed in dev when using the Netlify adapter with `trailingSlash` set to `always`
+
+- Updated dependencies [[`f4e8889`](https://github.com/withastro/astro/commit/f4e8889c10c25aeb7650b389c35a70780d5ed172)]:
+  - @astrojs/internal-helpers@0.7.0
+  - @astrojs/markdown-remark@6.3.4
+
+## 5.12.6
+
+### Patch Changes
+
+- [#14153](https://github.com/withastro/astro/pull/14153) [`29e9283`](https://github.com/withastro/astro/commit/29e928391a90844f8b701a581c4f163e0b6c46db) Thanks [@jp-knj](https://github.com/jp-knj)! - Fixes a regression introduced by a recent optimisation of how SVG images are emitted during the build.
+
+- [#14156](https://github.com/withastro/astro/pull/14156) [`592f08d`](https://github.com/withastro/astro/commit/592f08d1b4a3e03c61b34344e36cb772bd67709a) Thanks [@TheOtterlord](https://github.com/TheOtterlord)! - Fix the client router not submitting forms if the active URL contained a hash
+
+- [#14160](https://github.com/withastro/astro/pull/14160) [`d2e25c6`](https://github.com/withastro/astro/commit/d2e25c6e9d52160d4f8d8cbf7bc44e6794483f20) Thanks [@ascorbic](https://github.com/ascorbic)! - Fixes a bug that meant some remote image URLs could cause invalid filenames to be used for processed images
+
+- [#14167](https://github.com/withastro/astro/pull/14167) [`62bd071`](https://github.com/withastro/astro/commit/62bd0717ab810c049ed7f3f63029895dfb402797) Thanks [@ascorbic](https://github.com/ascorbic)! - Fixes a bug that prevented destroyed sessions from being deleted from storage unless the session had been loaded
+
+## 5.12.5
+
+### Patch Changes
+
+- [#14059](https://github.com/withastro/astro/pull/14059) [`19f53eb`](https://github.com/withastro/astro/commit/19f53eb59dfeeff08078cec0a903c8722b5650ca) Thanks [@benosmac](https://github.com/benosmac)! - Fixes a bug in i18n implementation, where Astro didn't emit the correct pages when `fallback` is enabled, and a locale uses a catch-all route, e.g. `src/pages/es/[...catchAll].astro`
+
+- [#14155](https://github.com/withastro/astro/pull/14155) [`31822c3`](https://github.com/withastro/astro/commit/31822c3f0c8401e20129d0fc6bf8d1d670249265) Thanks [@ascorbic](https://github.com/ascorbic)! - Fixes a bug that caused an error "serverEntrypointModule[_start] is not a function" in some adapters
+
+## 5.12.4
+
+### Patch Changes
+
+- [#14031](https://github.com/withastro/astro/pull/14031) [`e9206c1`](https://github.com/withastro/astro/commit/e9206c192fc4a4dbf2d02f921fa540f987ccbe89) Thanks [@jp-knj](https://github.com/jp-knj)! - Optimized the build pipeline for SVG images. Now, Astro doesn't reprocess images that have already been processed.
+
+- [#14132](https://github.com/withastro/astro/pull/14132) [`976879a`](https://github.com/withastro/astro/commit/976879a400af9f44aee52c9112a7bd9788163588) Thanks [@ematipico](https://github.com/ematipico)! - Fixes a bug where the property `Astro.routePattern`/`context.routePattern` wasn't updated when using a rewrite via middleware.
+
+- [#14131](https://github.com/withastro/astro/pull/14131) [`aafc4d7`](https://github.com/withastro/astro/commit/aafc4d7f8b3f198ace24a8a7f6cc9298771542da) Thanks [@florian-lefebvre](https://github.com/florian-lefebvre)! - Fixes a case where an error occurring in a middleware would show the dev overlay instead of the custom `500.astro` page
+
+- [#14127](https://github.com/withastro/astro/pull/14127) [`2309ada`](https://github.com/withastro/astro/commit/2309ada1c6d96c75815eda0760656147de435ba2) Thanks [@florian-lefebvre](https://github.com/florian-lefebvre)! - Upgrades zod
+
+- [#14134](https://github.com/withastro/astro/pull/14134) [`186c201`](https://github.com/withastro/astro/commit/186c201a1bd83593c880ab784d79f69245b445c2) Thanks [@ascorbic](https://github.com/ascorbic)! - Throws a more helpful error in dev if trying to use a server island without an adapter
+
+- [#14129](https://github.com/withastro/astro/pull/14129) [`3572d85`](https://github.com/withastro/astro/commit/3572d85ba89ef9c374f3631654eee704adf00e73) Thanks [@ematipico](https://github.com/ematipico)! - Fixes a bug where the CSP headers was incorrectly added to a page when using an adapter.
+
 ## 5.12.3
 
 ### Patch Changes

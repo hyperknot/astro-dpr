@@ -1,5 +1,25 @@
 # @astrojs/db
 
+## 0.16.1
+
+### Patch Changes
+
+- [#14186](https://github.com/withastro/astro/pull/14186) [`9fe883e`](https://github.com/withastro/astro/commit/9fe883ece60f11da7d63c2eef8af61923997021e) Thanks [@Adammatthiesen](https://github.com/Adammatthiesen)! - Fixes types for optional and primary key columns in Astro DB tables.
+
+## 0.16.0
+
+### Minor Changes
+
+- [#13894](https://github.com/withastro/astro/pull/13894) [`b36e72f`](https://github.com/withastro/astro/commit/b36e72f11fbcc0f3d5826f2b1939084f1fb1e3a8) Thanks [@florian-lefebvre](https://github.com/florian-lefebvre)! - Removes support for Astro Studio
+
+  Astro Studio has been [discontinued since September 2024](https://astro.build/blog/goodbye-astro-studio/). If you still haven't migrated yet to Turso, check [our guide](https://docs.astro.build/en/guides/astro-db/#migrate-from-astro-studio-to-turso).
+
+## 0.15.1
+
+### Patch Changes
+
+- [#14127](https://github.com/withastro/astro/pull/14127) [`2309ada`](https://github.com/withastro/astro/commit/2309ada1c6d96c75815eda0760656147de435ba2) Thanks [@florian-lefebvre](https://github.com/florian-lefebvre)! - Upgrades zod
+
 ## 0.15.0
 
 ### Minor Changes
