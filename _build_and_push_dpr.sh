@@ -14,7 +14,7 @@ pnpm build
 
 (cd packages/astro || exit
   pnpm pkg set name="@hyperknot/astro-dpr"
-  pnpm publish --access public --provenance false --no-git-checks
+#  pnpm publish --access public --provenance false --no-git-checks
   pnpm pkg set name="astro"
 )
 
